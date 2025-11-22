@@ -10,7 +10,7 @@ echo "<p>You're at registration.php</p>";
 <?php
 echo "<h2>Registration Form</h2>";  
 ?>
-<form action="./processes/registration-process.php" method="POST">
+<form action="../processes/registration-process.php" method="POST">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required><br>
     

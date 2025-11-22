@@ -27,12 +27,12 @@
 include('../config/db.php');
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
-    $email = $_POST['password'];
+    $password = $_POST['password'];
     $confirmPassword = $_POST['confirm-password'];
 
-    if (empty($username) || empty($password) || empty($confirm_password)) {
+    if (empty($username) || empty($password) || empty($confirmPassword)) {
         echo "All fields are required.";
-    } else if ($password !== $confirm_password) {
+    } else if ($password !== $confirmPassword) {
         echo "Passwords do not match.";
     } else {
        
