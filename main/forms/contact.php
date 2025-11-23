@@ -1,16 +1,16 @@
-# TEST CODE --1
-<!-- <?php 
-echo "<p>You're at contact.php</p>";
-?> -->
+<!-- ________________TEST CODE --1 -->
+<?php 
+// echo "<p>You're at contact.php</p>";
+?>
 
 
 
 
-
+<!-- ________________WORKING CONTACT -->
 <?php
 echo "<h2>Contact Us</h2>";   
 ?>
-<form action="./processes/contact-process.php" method="POST">
+<form action="../processes/contact-process.php" method="POST">
     <label for="name">Name</label>
     <input type="text" id="name" name="name" required>
     

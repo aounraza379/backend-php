@@ -1,5 +1,5 @@
-# DEFAULT CONTENT FOR NEW FILE main/processes/registration-process.php
-# THIS IS ALL BEFORE MAKING DATABASE CONNECTIONS OR OTHER MODIFICATIONS
+<!-- ________________DEFAULT CONTENT FOR NEW FILE main/processes/registration-process.php -->
+<!-- ________________THIS IS ALL BEFORE MAKING DATABASE CONNECTIONS OR OTHER MODIFICATIONS -->
 <?php
 // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 //     $username = $_POST['username'];
@@ -18,11 +18,7 @@
 // }
 ?>
 
-
-
-
-
-# AFTER DATABASE CONNECTIONS OR OTHER MODIFICATIONS USE THIS:
+<!-- ________________AFTER DATABASE CONNECTIONS OR OTHER MODIFICATIONS USE THIS: -->
 <?php
 include('../config/db.php');
 
