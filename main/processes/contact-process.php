@@ -23,29 +23,23 @@
 # AFTER DATABASE CONNECTIONS OR OTHER MODIFICATIONS USE THIS:
 <?php
 include('../config/db.php');
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name =trim($_POST['name']);
-    $email = trim($_POST['email']);
-    $message =trim($_POST['message']);
+
+try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        throw new Exception('Invalid request method.');
+    }
+    
+    $name = $_POST['name'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $message = $_POST['message'] ?? '';
 
     if (empty($name) || empty($email) || empty($message)) {
-        echo "All fields are required.";
-    } else {
-        $stmt = $conn->prepare("INSERT INTO contact (name, email, message) VALUES (?, ?, ?)");
-        if ($stmt === false) {
-            die('Prepare failed: ' . $conn->error);
-        }
-        $stmt->bind_param("sss", $name, $email, $message);
-
-        if ($stmt->execute()) {
-            echo "Thank you, $name. Your message has been received.";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-        $stmt->close();
+        throw new Exception('All fields are required.');
     }
-} else {
-    echo "Invalid request method.";
+    
+    echo "Thank you, $name. Your message has been received.";
+    
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }
-$conn->close();
 ?>

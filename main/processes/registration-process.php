@@ -25,33 +25,43 @@
 # AFTER DATABASE CONNECTIONS OR OTHER MODIFICATIONS USE THIS:
 <?php
 include('../config/db.php');
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirm-password'];
+
+try {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        throw new Exception('Invalid request method.');
+    }
+    
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $confirmPassword = $_POST['confirm-password'] ?? '';
 
     if (empty($username) || empty($password) || empty($confirmPassword)) {
-        echo "All fields are required.";
-    } else if ($password !== $confirmPassword) {
-        echo "Passwords do not match.";
-    } else {
-       
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        throw new Exception('All fields are required.');
+    }
+    
+    if ($password !== $confirmPassword) {
+        throw new Exception('Passwords do not match.');
+    }
+   
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $username, $hashed_password);
-
-        if ($stmt->execute()) {
-            echo "Registration successful for user: $username";
-        } else {
-            echo "Error: ". $stmt->error;
-        }
-
-        $stmt->close();
-    } 
-
-} else {
-    echo "Invalid request method.";
+    $stmt = $conn->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
+    if (!$stmt) {
+        throw new Exception('Prepare failed: ' . $conn->error);
+    }
+    
+    $stmt->bind_param("ss", $username, $hashed_password);
+    
+    if (!$stmt->execute()) {
+        throw new Exception('Execute failed: ' . $stmt->error);
+    }
+    
+    echo "Registration successful for user: $username";
+    $stmt->close();
+    
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+} finally {
+    $conn->close();
 }
-$conn->close();
 ?>

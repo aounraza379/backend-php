@@ -1,14 +1,9 @@
-# TEST CODE --1
-<!-- <?php
-echo "<h1>This is the main index.php file.</h1>";
-echo "<a href='/forms/contact.php'>Contact</a><br>";
-echo "<a href='/forms/registration.php'>Registration</a>";
-?> -->
+<?php include_once __DIR__ . '/includes/header.php'; ?>
 
+    <main>
+        <h2>Welcome to the Home Page</h2>
+        <p>This is the main landing page of the website.</p>
+        <p>Header and footer are included from separate files.</p>
+    </main>
 
-
-<?php
-echo "<h1>Welcome to the Main Page</h1>";
-echo "<p><a href='./forms/contact.php'>Contact Us</a></p>";
-echo "<p><a href='./forms/registration.php'>Register</a></p>";
-?>
+<?php include_once __DIR__ . '/includes/footer.php'; ?>
